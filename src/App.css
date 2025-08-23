@@ -1,1 +1,10 @@
 @import "tailwindcss";
+
+@theme {
+  --color-primary: #3d3737;
+  --color-secondary: #5a5a5a;
+  --font-sans: "Lato", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Didot", "Times New Roman", serif;
+  --font-cursive: "Ephesis", "Brush Script MT", cursive;
+  --text-base: 18px;
+}
