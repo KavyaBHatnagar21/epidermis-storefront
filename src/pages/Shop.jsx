@@ -18,7 +18,7 @@ export default function Shop() {
     <div>
       {collections && collections.length > 0 ? (
         collections.map((col) => (
-          <CollectionPreview key={col.id} title={col.title} />
+          <CollectionPreview key={col.id} title={col.title} id={col.id} />
         ))
       ) : (
         <Message>No collections found.</Message>

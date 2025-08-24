@@ -4,7 +4,7 @@ import IconButton from "./IconButton";
 
 export default function Header() {
   return (
-    <header className="uppercase font-light text-base text-secondary h-32 px-4 tracking-wider">
+    <header className="uppercase h-32 px-4">
       <div className="container mx-auto grid h-full grid-cols-3 items-center sm:px-16">
         {/* Left nav */}
         <nav className="flex justify-around">
