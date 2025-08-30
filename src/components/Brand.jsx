@@ -1,11 +1,18 @@
 import { Link } from "react-router-dom";
+import clsx from "clsx";
 
-export default function Brand() {
+export default function Brand({ variant = "dark", className, ...props }) {
   return (
-    <div className="flex justify-center">
-      <Link to="/" className="font-serif text-primary text-2xl tracking-widest">
-        EPIDERMIS
-      </Link>
-    </div>
+    <Link
+      to="/"
+      className={clsx(
+        "font-serif text-2xl tracking-widest",
+        variant === "dark" ? "text-primary" : "text-white",
+        className,
+      )}
+      {...props}
+    >
+      EPIDERMIS
+    </Link>
   );
 }

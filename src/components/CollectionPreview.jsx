@@ -22,7 +22,7 @@ export default function CollectionPreview({ title, id }) {
             ))
           : !loading && <p>No products found.</p>}
       </div>
-      <ArrowLink to="/explore" className="justify-center">
+      <ArrowLink to={`/collection/${id}`} className="justify-center">
         Explore More
       </ArrowLink>
     </div>

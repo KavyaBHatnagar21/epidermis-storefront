@@ -4,7 +4,7 @@ import IconButton from "./IconButton";
 
 export default function Header() {
   return (
-    <header className="uppercase h-32 px-4">
+    <header className="h-32 px-4 uppercase">
       <div className="container mx-auto grid h-full grid-cols-3 items-center sm:px-16">
         {/* Left nav */}
         <nav className="flex justify-around">
@@ -12,11 +12,11 @@ export default function Header() {
           <NavLink to="/shop">Shop</NavLink>
         </nav>
         {/* Logo centered */}
-        <Brand />
+        <Brand className="flex justify-center" />
         {/* Right actions */}
         <div className="flex items-center justify-around">
           <NavLink to="/contact">Contact</NavLink>
-          <div className="flex gap-6">
+          <div className="flex">
             <IconButton name="cart" />
             <IconButton name="profile" />
           </div>

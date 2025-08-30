@@ -8,6 +8,7 @@ import Contact from "./pages/Contact";
 import Cart from "./pages/Cart";
 import Profile from "./pages/Profile";
 import ProductDetails from "./pages/ProductDetails";
+import CollectionPage from "./pages/CollectionPage";
 import NotFound from "./pages/NotFound";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -26,6 +27,7 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/product/:id" element={<ProductDetails />} />
+            <Route path="/collection/:id" element={<CollectionPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
