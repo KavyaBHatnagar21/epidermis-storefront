@@ -3,10 +3,10 @@ import ArrowLink from "../../components/ArrowLink";
 
 export default function HeroSection() {
   return (
-    <section className="hero-section mb-30">
+    <section className="hero-section mb-15 md:mb-30 xl:mb-0">
       {/* Desktop-first grid; collapses cleanly on smaller screens */}
 
-      <div className="mx-auto mb-30 grid h-[60vh] grid-cols-16 grid-rows-9 overflow-hidden md:h-[90vh] xl:container xl:p-5 2xl:px-20">
+      <div className="mx-auto grid h-[60vh] grid-cols-16 grid-rows-9 overflow-hidden md:h-[90vh] xl:container xl:p-8 2xl:px-20">
         {/* Left large image */}
         <div className="col-start-1 col-end-17 row-start-1 row-end-10 lg:row-start-1 lg:row-end-10 xl:col-start-1 xl:col-end-6 xl:row-start-1 xl:row-end-8">
           <img

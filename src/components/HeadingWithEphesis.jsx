@@ -22,12 +22,12 @@ const HeadingWithEphesis = ({
   const ephesisSet = new Set(ephesisLetters.map((l) => l.toUpperCase()));
 
   return (
-    <div className={clsx("mb-80 uppercase", className)}>
+    <div className={clsx("uppercase", className)}>
       {lines.map((line, lineIndex) => (
         <h1
           key={lineIndex}
-          className={clsx("text-5xl tracking-widest", headingClassName, {
-            "mt-8": lineIndex > 0,
+          className={clsx(" tracking-widest", headingClassName, {
+            "mt-4": lineIndex > 0,
           })}
         >
           {line.split("").map((char, index) => {

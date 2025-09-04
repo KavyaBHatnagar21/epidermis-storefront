@@ -5,10 +5,11 @@ import P from "./P";
 export default function Footer() {
   return (
     <footer className="bg-brown">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 justify-items-center gap-12 px-6 py-16 md:grid-cols-3">
-        <div className="col1 flex flex-col gap-2">
-          <Brand variant="light" className="" />
-          <div className="my-4 flex space-x-3">
+      <div className="container  mx-auto grid grid-cols-2 grid-rows-2 md:grid-rows-1 px-4 pt-16 mb-16 md:grid-cols-3 md:justify-items-center">
+        <div className="col1 flex flex-col gap-2 row-start-1">
+          <Brand variant="light" />
+          <div className="my-1 md:my-4 flex space-x-2 md:space-x-3">
+            {/* TODO: Add social media links */}
             <Link
               to="https://www.instagram.com"
               target="_blank"
@@ -50,18 +51,16 @@ export default function Footer() {
             <img
               src="/src/assets/bw_footer_img.png"
               alt="Footer"
-              className="w-30"
+              className="w-30 hidden md:block"
             />
           </div>
-            <P className="mt-18 text-sm" variant="light">
-              © EPIDERMIS {new Date().getFullYear()} ALL RIGHTS RESERVED.
-            </P>
+          
         </div>
-        <div>
+        <div className='row-start-2 md:row-start-1'>
           <P className="mb-6 font-semibold" variant="light">
             NAVIGATION
           </P>
-          <div className="flex flex-col space-y-2 text-sm uppercase text-white">
+          <div className="flex flex-col space-y-2 text-sm text-white uppercase">
             <Link to="/" className="hover:underline">
               <P variant="light">Home</P>
             </Link>
@@ -76,11 +75,11 @@ export default function Footer() {
             </Link>
           </div>
         </div>
-        <div>
+        <div className='row-start-2 md:row-start-1'>
           <P className="mb-6 font-semibold" variant="light">
             SHOP
           </P>
-          <div className="flex flex-col space-y-2 text-sm uppercase text-white">
+          <div className="flex flex-col space-y-2 text-sm text-white uppercase">
             {[
               { title: "Women", handle: "women" },
               { title: "Men", handle: "men" },
@@ -97,6 +96,9 @@ export default function Footer() {
           </div>
         </div>
       </div>
+      <P className="text-sm mb-8 text-center" variant="light">
+            © EPIDERMIS {new Date().getFullYear()} ALL RIGHTS RESERVED.
+          </P>
     </footer>
   );
 }
