@@ -4,7 +4,7 @@ import HeadingWithEphesis from "../../components/HeadingWithEphesis";
 
 export default function ShopSection() {
   return (
-    <div className="shop-section mx-auto mb-8 grid h-[80vh] grid-cols-16 grid-rows-9 overflow-hidden sm:mb-0 md:mb-16 md:h-[100vh] lg:mb-32 xl:mb-0 xl:container xl:px-5 2xl:px-20">
+    <div className="shop-section mx-auto mb-16 grid h-[80vh] grid-cols-16 grid-rows-9 overflow-hidden sm:mb-0 md:mb-16 md:h-[100vh] lg:mb-32 xl:mb-0 xl:container xl:px-5 2xl:px-20">
       {/* Left Image */}
       <div className="col-start-1 col-end-8 row-start-2 row-end-9 pt-10 sm:pt-5 xl:col-end-5 xl:pt-15">
         <img

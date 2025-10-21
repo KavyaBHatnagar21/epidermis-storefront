@@ -1,12 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import clsx from "clsx";
 import P from "./P";
 
 export default function ProductCard({ product, className, ...props }) {
   return (
-    <div
+    <Link
+      to={`/product/${product.id}`}
       className={clsx(
-        "flex w-64 cursor-pointer flex-col items-center transition hover:bg-gray-100",
+        "flex w-64 flex-col items-center transition hover:bg-gray-100",
         className,
       )}
       {...props}
@@ -29,6 +31,6 @@ export default function ProductCard({ product, className, ...props }) {
             {product.variants[0].calculated_price.calculated_amount.toFixed(2)}
           </P>
         )}
-    </div>
+    </Link>
   );
 }
