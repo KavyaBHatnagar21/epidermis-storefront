@@ -3,7 +3,10 @@ import HeadingWithEphesis from "../../components/HeadingWithEphesis";
 import ArrowLink from "../../components/ArrowLink";
 const AboutSection = () => {
   return (
-    <section className="mb-16 flex grid-cols-[1fr_1fr] flex-col gap-y-8 lg:mb-32 lg:grid lg:gap-x-16 xl:container xl:mx-auto xl:grid-cols-[1fr_1fr_1fr] xl:grid-rows-[0.6fr_0.32fr_1fr] xl:gap-x-32 xl:px-8 2xl:px-20">
+    <section className="mb-16 flex grid-cols-[1fr_1fr] flex-col gap-y-8 
+    lg:mb-32 lg:grid lg:gap-x-16 
+    xl:container xl:mx-auto xl:grid-cols-[1fr_1fr_1fr] xl:grid-rows-[0.6fr_0.32fr_1fr] xl:gap-x-32 xl:px-8 2xl:px-20">
+
       {/* Our Craftmanship */}
       <div className="col-span-2 col-start-2 row-start-1">
         <HeadingWithEphesis
