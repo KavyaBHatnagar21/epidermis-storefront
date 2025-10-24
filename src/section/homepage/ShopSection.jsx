@@ -14,7 +14,7 @@ export default function ShopSection() {
         />
 
         <ArrowLink
-          useButton
+          to="/categories/men"
           className="bg-primary xl:text-primary mt-3 w-full text-white sm:h-14 xl:border-1 xl:bg-transparent"
         >
           MEN&nbsp;→
@@ -42,7 +42,7 @@ export default function ShopSection() {
           className="h-auto max-w-full pt-8 sm:pt-0 lg:w-full"
         />
         <ArrowLink
-          useButton
+          to="/categories/children"
           className="bg-primary xl:text-primary mt-3 w-full text-white sm:h-14 xl:border-1 xl:bg-transparent"
         >
           CHILDREN&nbsp;→
@@ -55,7 +55,7 @@ export default function ShopSection() {
           className="mt-10 h-auto w-100 lg:w-full xl:mt-0"
         />
         <ArrowLink
-          useButton
+          to="/categories/women"
           className="bg-primary xl:text-primary mt-3 w-full text-white sm:h-14 xl:border-1 xl:bg-transparent"
         >
           women&nbsp;→

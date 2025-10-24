@@ -7,16 +7,17 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Cart from "./pages/Cart";
 import Profile from "./pages/Profile";
-import ProductDetails from "./pages/ProductDetails";
 import CollectionPage from "./pages/CollectionPage";
 import NotFound from "./pages/NotFound";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import CategoriesPage from "./pages/CategoriesPage.jsx";
+import ProductDetailPage from "./pages/ProductDetailPage";
 
 function App() {
   return (
     <Router>
-      <div className="flex flex-col min-h-screen">
+      <div className="flex min-h-screen flex-col">
         <Header />
         <main className="flex-grow">
           <Routes>
@@ -26,9 +27,14 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/product/:id" element={<ProductDetails />} />
             <Route path="/collection/:id" element={<CollectionPage />} />
             <Route path="*" element={<NotFound />} />
+
+            <Route
+              path="/categories/:categoryId"
+              element={<CategoriesPage />}
+            />
+            <Route path="/product/:productId" element={<ProductDetailPage />} />
           </Routes>
         </main>
         <Footer />

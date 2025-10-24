@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { sdk } from "../configs/medusa";
 
 export default function useProducts({
-  collectionId = null,
+  categoryId = null,
   limit = 20,
   offset = 0,
 } = {}) {
@@ -20,7 +20,7 @@ export default function useProducts({
           //region_id: "IN",
           limit,
           offset,
-          ...(collectionId ? { collection_id: collectionId } : {}),
+          ...(categoryId ? { category_id: categoryId } : {}),
         });
         setProducts(response.products);
       } catch (err) {
@@ -31,7 +31,7 @@ export default function useProducts({
       }
     }
     fetchProducts();
-  }, [collectionId, limit, offset]);
+  }, [categoryId, limit, offset]);
 
   return { products, loading, error };
 }
