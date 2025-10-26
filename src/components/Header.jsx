@@ -3,12 +3,16 @@ import { Link } from "react-router-dom";
 import NavLink from "./NavLink";
 import Brand from "./Brand";
 import IconButton from "./IconButton";
+import CartButton from "./CartButton";
 import useAuth from "../context/AuthContext";
+import useCart from "../context/useCart";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
+  const [itemCount, setItemCount] = React.useState(0);
   const { customer, logout } = useAuth();
+  const { cart } = useCart();
 
   const isCustomerEmpty = !customer || Object.keys(customer).length === 0;
 
@@ -20,6 +24,12 @@ export default function Header() {
     logout();
     setProfileDropdownOpen(false);
   };
+
+
+  React.useEffect(() => {
+    const count = cart?.items?.reduce((acc, item) => acc + item.quantity, 0) || 0;
+    setItemCount(count);
+  }, [cart]);
 
   return (
     <header className="py-4 xl:py-10 uppercase relative">
@@ -56,7 +66,7 @@ export default function Header() {
             </div>
           ) : (
             <div className="flex justify-end md:justify-around items-center gap-4">
-              <IconButton name="cart" />
+              <CartButton itemCount={itemCount} />
               <div className="relative flex items-center gap-1 cursor-pointer" onClick={toggleProfileDropdown}>
                 <IconButton name="profile" />
                 {profileDropdownOpen && (

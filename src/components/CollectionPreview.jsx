@@ -12,7 +12,7 @@ export default function CollectionPreview({ category_id, category_title }) {
 
   return (
     <div className="container mx-auto mt-8 mb-20 sm:px-16">
-      <H3 className="mb-12 text-center">{category_title} Category</H3>
+      <H3 className="mb-12 text-center">{category_title} Collection</H3>
       <div className="row-start-2 mb-20 grid grid-cols-3 justify-items-center gap-y-16">
         {loading && <p>Loading products...</p>}
         {error && <p>Failed to load products.</p>}

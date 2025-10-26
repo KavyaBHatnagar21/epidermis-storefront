@@ -1,7 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 
-const baseStyles = "w-full px-4 py-4 inline-flex items-center justify-center border font-medium rounded focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed";
+const baseStyles = "w-full px-4 py-4 inline-flex items-center justify-center border font-medium rounded focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer";
 
 const variantStyles = {
   primary: "bg-brown text-white opacity-95 hover:opacity-100 focus:ring-blue-500",

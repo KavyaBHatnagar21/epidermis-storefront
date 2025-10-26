@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { sdk } from "../configs/medusa";
+import {useRegion} from "../context/RegionContext.jsx";
 
 export default function useProducts({
   categoryId = null,
@@ -9,6 +10,7 @@ export default function useProducts({
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState(null);
   const [error, setError] = useState(null);
+  const {region} = useRegion();
 
   useEffect(() => {
     async function fetchProducts() {
@@ -17,7 +19,7 @@ export default function useProducts({
       try {
         const response = await sdk.store.product.list({
           fields: "*variants.calculated_price",
-          //region_id: "IN",
+          region_id: region.id,
           limit,
           offset,
           ...(categoryId ? { category_id: categoryId } : {}),
