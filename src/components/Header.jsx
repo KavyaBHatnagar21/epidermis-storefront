@@ -1,18 +1,33 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import NavLink from "./NavLink";
 import Brand from "./Brand";
 import IconButton from "./IconButton";
+import useAuth from "../context/AuthContext";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
+  const { customer, logout } = useAuth();
+
+  const isCustomerEmpty = !customer || Object.keys(customer).length === 0;
+
+  const toggleProfileDropdown = () => {
+    setProfileDropdownOpen(!profileDropdownOpen);
+  };
+
+  const handleLogout = () => {
+    logout();
+    setProfileDropdownOpen(false);
+  };
 
   return (
     <header className="py-4 xl:py-10 uppercase relative">
       <div className="mx-auto grid h-full grid-cols-3 items-center px-4 lg:px-16 xl:container 2xl:px-20">
         {/* Left nav */}
         <nav className="flex md:justify-around">
-          <button 
-            onClick={() => setMenuOpen(!menuOpen)} 
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
             className="md:hidden"
           >
             <IconButton name="hamburger" />
@@ -29,14 +44,34 @@ export default function Header() {
         <Brand className="flex justify-center text-lg sm:text-xl md:text-2xl" />
 
         {/* Right actions */}
-        <div className="flex justify-end md:justify-around">
+        <div className="flex justify-end md:justify-around items-center gap-4">
           <NavLink to="/contact" className="hidden md:block">
             Contact
           </NavLink>
-          <div className="flex items-center gap-2 md:gap-4">
-            <IconButton name="cart" />
-            <IconButton name="profile" />
-          </div>
+          {isCustomerEmpty ? (
+            <div className="flex justify-end md:justify-around items-center gap-4">
+              <Link to="/auth" className="hidden md:block">
+                Login
+              </Link>
+            </div>
+          ) : (
+            <div className="flex justify-end md:justify-around items-center gap-4">
+              <IconButton name="cart" />
+              <div className="relative flex items-center gap-1 cursor-pointer" onClick={toggleProfileDropdown}>
+                <IconButton name="profile" />
+                {profileDropdownOpen && (
+                  <div className="absolute right-0 mt-10 w-40 bg-white border border-gray-300 rounded shadow-lg z-50">
+                    <button
+                      className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
