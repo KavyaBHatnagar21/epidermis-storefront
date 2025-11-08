@@ -14,13 +14,16 @@ import Footer from "./components/Footer";
 import CategoriesPage from "./pages/CategoriesPage.jsx";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import Auth from "./pages/Auth";
-import {AuthProvider} from "./context/AuthContext";
+import {UserProvider} from "./context/UserContext.jsx";
 import {RegionProvider} from "./context/RegionContext.jsx";
 import {CartProvider} from "./context/CartContext.jsx";
+import CheckoutAddress from "./pages/CheckoutAddress";
+import CreateAddressPage from "./pages/CreateAddressPage";
+import CheckoutPayment from "./pages/CheckoutPayment";
 
 function App() {
   return (<Router>
-      <AuthProvider>
+      <UserProvider>
         <RegionProvider>
           <CartProvider>
             <div className="flex min-h-screen flex-col">
@@ -35,20 +38,22 @@ function App() {
                   <Route path="/profile" element={<Profile/>}/>
                   <Route path="/collection/:id" element={<CollectionPage/>}/>
                   <Route path="*" element={<NotFound/>}/>
-
                   <Route
                     path="/categories/:categoryId"
                     element={<CategoriesPage/>}
                   />
                   <Route path="/product/:productId" element={<ProductDetailPage/>}/>
                   <Route path="/auth" element={<Auth/>}/>
+                  <Route path="/checkout/address" element={<CheckoutAddress/>}/>
+                  <Route path="/profile/address/new" element={<CreateAddressPage/>}/>
+                  <Route path="/checkout/payment" element={<CheckoutPayment/>}/>
                 </Routes>
               </main>
               <Footer/>
             </div>
           </CartProvider>
         </RegionProvider>
-      </AuthProvider>
+      </UserProvider>
     </Router>
   );
 }

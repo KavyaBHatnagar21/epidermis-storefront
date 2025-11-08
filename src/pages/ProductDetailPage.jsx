@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { sdk } from "../configs/medusa";
-import useCart from "../context/useCart";
+import useCart from "../hooks/useCart.js";
 
 export default function ProductDetailPage() {
   const { productId } = useParams();

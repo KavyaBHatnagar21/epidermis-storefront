@@ -1,12 +1,14 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { sdk } from "../configs/medusa.js";
-import { useRegion } from "./RegionContext";
+import { useRegion } from "./RegionContext.jsx";
+import useUser from "../hooks/useUser.js";
 
 const CartContext = createContext(null);
 
 const CartProvider = ({ children }) => {
   const [cart, setCart] = useState(null);
   const { region } = useRegion();
+  const { customer } = useUser();
 
   const getOrCreateCart = async () => {
     if (cart) {
@@ -43,8 +45,28 @@ const CartProvider = ({ children }) => {
     if (!region) {
       return;
     }
-    getOrCreateCart();
-  }, [region, cart]);
+
+    if (!cart) {
+      getOrCreateCart();
+    }
+  }, [region]);
+
+  useEffect(() =>
+  {
+    const updateCartEmail = async () => {
+      if (cart && customer?.email && cart.email !== customer.email) {
+        try {
+          const { cart: updatedCart } = await sdk.store.cart.update(cart.id, {
+            email: customer.email,
+          });
+          setCart(updatedCart);
+        } catch (error) {
+          console.error("Failed to update cart email:", error);
+        }
+      }
+    };
+    updateCartEmail();
+  }, [customer?.email, cart]);
 
   const refreshCart = () => {
     localStorage.removeItem("cart_id");

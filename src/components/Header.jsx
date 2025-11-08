@@ -4,14 +4,15 @@ import NavLink from "./NavLink";
 import Brand from "./Brand";
 import IconButton from "./IconButton";
 import CartButton from "./CartButton";
-import useAuth from "../context/AuthContext";
-import useCart from "../context/useCart";
+import useUser from "../hooks/useUser.js"
+import useCart from "../hooks/useCart.js";
+import P from "../components/P";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   const [itemCount, setItemCount] = React.useState(0);
-  const { customer, logout } = useAuth();
+  const { customer, logout } = useUser();
   const { cart } = useCart();
 
   const isCustomerEmpty = !customer || Object.keys(customer).length === 0;
@@ -58,46 +59,40 @@ export default function Header() {
           <NavLink to="/contact" className="hidden md:block">
             Contact
           </NavLink>
-          {isCustomerEmpty ? (
-            <div className="flex justify-end md:justify-around items-center gap-4">
+          <div className="flex justify-end md:justify-around items-center gap-4">
+            <CartButton itemCount={itemCount} />
+            {isCustomerEmpty ? (<div className="flex justify-end md:justify-around items-center gap-4">
               <Link to="/auth" className="hidden md:block">
                 Login
               </Link>
-            </div>
-          ) : (
-            <div className="flex justify-end md:justify-around items-center gap-4">
-              <CartButton itemCount={itemCount} />
-              <div className="relative flex items-center gap-1 cursor-pointer" onClick={toggleProfileDropdown}>
-                <IconButton name="profile" />
-                {profileDropdownOpen && (
-                  <div className="absolute right-0 mt-10 w-40 bg-white border border-gray-300 rounded shadow-lg z-50">
-                    <button
-                      className="block w-full text-left px-4 py-2 hover:bg-gray-100"
-                      onClick={handleLogout}
-                    >
-                      Logout
-                    </button>
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
+            </div>) : (<div className="relative flex items-center gap-1 cursor-pointer" onClick={toggleProfileDropdown}>
+              <IconButton name="profile" />
+              <P>{customer.first_name}</P>
+              {profileDropdownOpen && (
+                <div className="absolute right-0 mt-20 w-40 bg-white border border-gray-300 rounded shadow-lg z-50">
+                  <button
+                    className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </button>
+                </div>)}
+            </div>)}
+          </div>
         </div>
       </div>
 
       {/* Sidebar overlay */}
       <div
-        className={`fixed inset-0 z-40 bg-black/50 transition-opacity duration-300 ${
-          menuOpen ? "opacity-100 visible" : "opacity-0 invisible"
-        }`}
+        className={`fixed inset-0 z-40 bg-black/50 transition-opacity duration-300 ${menuOpen ? "opacity-100 visible" : "opacity-0 invisible"
+          }`}
         onClick={() => setMenuOpen(false)}
       ></div>
 
       {/* Sidebar menu */}
       <div
-        className={`fixed top-0 left-0 z-50 h-full w-64 bg-white shadow-lg transform transition-transform duration-300 ${
-          menuOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`fixed top-0 left-0 z-50 h-full w-64 bg-white shadow-lg transform transition-transform duration-300 ${menuOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
       >
         <div className="p-6 flex flex-col gap-6 text-lg">
           <button

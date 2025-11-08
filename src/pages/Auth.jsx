@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { sdk } from "../configs/medusa";
-import useAuth from "../context/AuthContext";
+import useUser from "../hooks/useUser.js";
 import TextInput from "../components/TextInput";
 import Button from "../components/Button";
 
@@ -22,7 +22,7 @@ const Auth = () => {
   const params = new URLSearchParams(location.search);
   const redirect = params.get("redirect");
 
-  const { register, login } = useAuth();
+  const { register, login } = useUser();
 
   const handleContinue = async () => {
     try {
