@@ -68,11 +68,11 @@ export default function CategoriesPage() {
   return (
     <div className="container mx-auto mt-8 mb-20 sm:px-16">
       <H3 className="mb-12 text-center">{category.name} Collection</H3>
-      <div className="row-start-2 mb-20 grid grid-cols-3 justify-items-center gap-y-16">
+      <div className="row-start-2 mb-20 justify-items-center gap-y-16 flex flex-col md:flex-row">
         {loading && <p>Loading products...</p>}
         {products && products.length > 0
           ? products.map((product) => (
-            <ProductCard key={product.id} product={product}/>
+            <ProductCard key={product.id} product={product} className="mx-auto"/>
           ))
           : !loading && <p>No products found.</p>}
       </div>

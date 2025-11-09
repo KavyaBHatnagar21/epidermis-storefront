@@ -67,7 +67,6 @@ export default function Header() {
               </Link>
             </div>) : (<div className="relative flex items-center gap-1 cursor-pointer" onClick={toggleProfileDropdown}>
               <IconButton name="profile" />
-              <P>{customer.first_name}</P>
               {profileDropdownOpen && (
                 <div className="absolute right-0 mt-20 w-40 bg-white border border-gray-300 rounded shadow-lg z-50">
                   <button

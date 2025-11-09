@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 
 function OrderSuccess() {
   const location = useLocation();
@@ -18,8 +18,14 @@ function OrderSuccess() {
         <>
           <h1 className="text-4xl font-extrabold mb-4 text-gray-900">Thank you for your purchase!</h1>
           <p className="text-lg text-gray-700 mb-2">Your order has been successfully placed.</p>
-          <p className="text-lg font-semibold text-gray-800 mb-4">Order ID: <span className="text-indigo-600">{orderId}</span></p>
+          <p className="text-lg font-semibold text-gray-800 mb-4">Order ID: <span className="text-indigo-600">{orderId.slice(-10)}</span></p>
           <p className="text-md text-gray-600 italic">You will be kept updated through WhatsApp.</p>
+          <button
+            onClick={() => navigate("/contact")}
+            className="text-blue-600"
+          >
+            Have Questions? Get in Touch!
+          </button>
         </>
       ) : (
         <>

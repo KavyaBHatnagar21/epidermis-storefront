@@ -70,7 +70,7 @@ const ProductDetailPage = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 py-12 flex flex-col md:flex-row gap-8">
       {/* Left thumbnails */}
-      <div className="flex flex-col gap-4">
+      <div className="flex md:flex-col justify-center gap-4">
         {images.map((img, idx) => (
           <img
             key={img.id}

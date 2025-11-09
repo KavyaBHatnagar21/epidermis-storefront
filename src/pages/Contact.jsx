@@ -5,7 +5,6 @@ import Button from "../components/Button.jsx";
 
 export default function Contact() {
   const [message, setMessage] = useState("");
-  const phoneNumber = "919876543210"; // replace with your number (no '+' or spaces)
 
   const handleContact = () => {
     const base = `https://wa.me/${import.meta.env.VITE_SUPPORT_PHONE_NUMBER}`;

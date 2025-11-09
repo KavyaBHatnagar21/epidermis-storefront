@@ -89,7 +89,7 @@ const Auth = () => {
   return (
     <div className="max-w-md mx-auto p-6 sm:p-10">
       {stage === 1 && (
-        <div className="flex gap-6 flex-col">
+        <div className="flex gap-6 flex-col align-middle justify-center min-h-[50vh]">
           <TextInput
             type="email"
             placeholder="Enter your email"
@@ -108,7 +108,7 @@ const Auth = () => {
         </div>
       )}
       {stage === 2 && (
-        <div className="flex gap-6 flex-col">
+        <div className="flex gap-6 flex-col align-middle justify-center min-h-[50vh]">
           <p>Email: {email}</p>
           {existingUser ? (
             <>

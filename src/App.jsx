@@ -30,7 +30,7 @@ function App() {
         <CartProvider>
           <div className="flex min-h-screen flex-col">
             <Header/>
-            <main className="flex-grow">
+            <main className="flex-grow min-h-[80vh]">
               <Routes>
                 <Route path="/" element={<Home/>}/>
                 <Route path="/shop" element={<Shop/>}/>

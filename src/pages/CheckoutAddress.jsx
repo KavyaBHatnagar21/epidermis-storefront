@@ -15,6 +15,9 @@ const CheckoutAddress = () => {
     if (!loadingCustomer && !customer) {
       navigate("/auth?redirect=/checkout/address");
     }
+    if(addresses.length === 0) {
+      navigate("/profile/address/new?redirect=/checkout/address");
+    }
   }, [customer, navigate]);
 
   if (loadingCustomer) {
@@ -27,7 +30,7 @@ const CheckoutAddress = () => {
     setSelectedAddressId(id);
   };
 
-  return (<div className="max-w-md mx-auto p-6 flex flex-col gap-4">
+  return (<div className="max-w-md mx-auto p-6 flex flex-col gap-4 mb-8">
     <H3 className="mb-6">Your Addresses</H3>
     {addresses.length === 0 ? (<div>
       <p className="mb-4 text-gray-700">You have no saved addresses.</p>
