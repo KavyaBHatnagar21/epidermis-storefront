@@ -26,23 +26,19 @@ const Auth = () => {
 
   const handleContinue = async () => {
     try {
-      await sdk.auth.register("customer", "emailpass", {
-        email,
-        password: " ",
-      });
-      // On success, proceed to stage 2 as new user
+      // Attempt to register with a placeholder password to check existence.
+      // This may return a specific error if the identity exists.
+      await sdk.auth.register("customer", "emailpass", { email, password: " " });
       setExistingUser(false);
       setStage(2);
     } catch (fetchError) {
-      if (
-        fetchError.statusText === "Unauthorized" &&
-        fetchError.message === "Identity with email already exists"
-      ) {
+      const msg = fetchError?.response?.data?.message || fetchError?.message || String(fetchError);
+      if (msg.includes("Identity with email already exists")) {
         setExistingUser(true);
         setStage(2);
         return;
       }
-      alert(`An error occured while creating account: ${fetchError}`);
+      alert(`An error occured while creating account: ${msg}`);
       return;
     }
   };

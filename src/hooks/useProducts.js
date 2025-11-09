@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { sdk } from "../configs/medusa";
-import {useRegion} from "../context/RegionContext.jsx";
+import {useRegion} from "./useRegion.js";
 
 export default function useProducts({
   categoryId = null,

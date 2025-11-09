@@ -8,7 +8,7 @@
 - The login function includes placeholder handling for this case to future-proof the code.
 - When a response with a `location` property is detected, the current behavior is to log the redirect URL.
 - Future implementations may redirect the user to the specified location or notify them accordingly.
-- This placeholder handling is documented and commented in the login function within `src/context/UserContext.jsx`.
+- This placeholder handling is documented and commented in the login function within `src/context/UserContext.js`.
 - This approach reduces technical debt by making the code self-explanatory and easier to maintain or extend in the future.
 
 ## Recommendations for Future Developers

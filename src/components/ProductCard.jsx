@@ -6,7 +6,7 @@ import P from "./P";
 export default function ProductCard({ product, className, ...props }) {
   return (
     <Link
-      to={`/product/${product.id}`}
+      to={`/product/${product.handle}`}
       className={clsx(
         "flex w-64 flex-col items-center transition hover:bg-gray-100",
         className,

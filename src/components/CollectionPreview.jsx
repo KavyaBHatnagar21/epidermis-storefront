@@ -4,7 +4,7 @@ import H3 from "./H3";
 import useProducts from "../hooks/useProducts";
 import ProductCard from "./ProductCard";
 
-export default function CollectionPreview({ category_id, category_title }) {
+export default function CollectionPreview({ category_handle, category_id, category_title }) {
   const { products, loading, error } = useProducts({
     limit: 6,
     categoryId: category_id,
@@ -22,7 +22,7 @@ export default function CollectionPreview({ category_id, category_title }) {
             ))
           : !loading && <p>No products found.</p>}
       </div>
-      <ArrowLink to={`/categories/${category_id}`} className="justify-center">
+      <ArrowLink to={`/categories/${category_handle}`} className="justify-center">
         Explore More
       </ArrowLink>
     </div>

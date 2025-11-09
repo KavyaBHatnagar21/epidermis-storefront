@@ -14,48 +14,51 @@ import Footer from "./components/Footer";
 import CategoriesPage from "./pages/CategoriesPage.jsx";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import Auth from "./pages/Auth";
-import {UserProvider} from "./context/UserContext.jsx";
-import {RegionProvider} from "./context/RegionContext.jsx";
-import {CartProvider} from "./context/CartContext.jsx";
 import CheckoutAddress from "./pages/CheckoutAddress";
 import CreateAddressPage from "./pages/CreateAddressPage";
 import CheckoutPayment from "./pages/CheckoutPayment";
+import OrderSuccess from "./pages/OrderSuccess";
+import {RegionProvider} from "./context/RegionProvider.jsx";
+import {UserProvider} from "./context/UserProvider.jsx";
+import {CartProvider} from "./context/CartProvider.jsx";
+import {ProtectedRoute} from "./components/ProtectedRoute.jsx";
 
 function App() {
   return (<Router>
-      <UserProvider>
-        <RegionProvider>
-          <CartProvider>
-            <div className="flex min-h-screen flex-col">
-              <Header/>
-              <main className="flex-grow">
-                <Routes>
-                  <Route path="/" element={<Home/>}/>
-                  <Route path="/shop" element={<Shop/>}/>
-                  <Route path="/about" element={<About/>}/>
-                  <Route path="/contact" element={<Contact/>}/>
-                  <Route path="/cart" element={<CartPage/>}/>
-                  <Route path="/profile" element={<Profile/>}/>
-                  <Route path="/collection/:id" element={<CollectionPage/>}/>
-                  <Route path="*" element={<NotFound/>}/>
-                  <Route
-                    path="/categories/:categoryId"
-                    element={<CategoriesPage/>}
-                  />
-                  <Route path="/product/:productId" element={<ProductDetailPage/>}/>
-                  <Route path="/auth" element={<Auth/>}/>
-                  <Route path="/checkout/address" element={<CheckoutAddress/>}/>
-                  <Route path="/profile/address/new" element={<CreateAddressPage/>}/>
-                  <Route path="/checkout/payment" element={<CheckoutPayment/>}/>
-                </Routes>
-              </main>
-              <Footer/>
-            </div>
-          </CartProvider>
-        </RegionProvider>
-      </UserProvider>
-    </Router>
-  );
+    <UserProvider>
+      <RegionProvider>
+        <CartProvider>
+          <div className="flex min-h-screen flex-col">
+            <Header/>
+            <main className="flex-grow">
+              <Routes>
+                <Route path="/" element={<Home/>}/>
+                <Route path="/shop" element={<Shop/>}/>
+                <Route path="/about" element={<About/>}/>
+                <Route path="/contact" element={<Contact/>}/>
+                <Route path="/cart" element={<CartPage/>}/>
+                <Route path="/profile" element={<ProtectedRoute><Profile/></ProtectedRoute>}/>
+                <Route path="/collection/:id" element={<CollectionPage/>}/>
+                <Route path="*" element={<NotFound/>}/>
+                <Route
+                  path="/categories/:categoryId"
+                  element={<CategoriesPage/>}
+                />
+                <Route path="/product/:productId" element={<ProductDetailPage/>}/>
+                <Route path="/auth" element={<Auth/>}/>
+                <Route path="/checkout/address" element={<ProtectedRoute>
+                  <CheckoutAddress/></ProtectedRoute>}/>
+                <Route path="/profile/address/new" element={<ProtectedRoute><CreateAddressPage/></ProtectedRoute>}/>
+                <Route path="/checkout/payment" element={<ProtectedRoute><CheckoutPayment/></ProtectedRoute>}/>
+                <Route path="/order-success" element={<OrderSuccess/>}/>
+              </Routes>
+            </main>
+            <Footer/>
+          </div>
+        </CartProvider>
+      </RegionProvider>
+    </UserProvider>
+  </Router>);
 }
 
 export default App;

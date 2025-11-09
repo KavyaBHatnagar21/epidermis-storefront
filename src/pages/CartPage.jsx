@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useCart from "../hooks/useCart.js";
 import H3 from "../components/H3.jsx";
-import Button from "../components/Button.jsx";
 import LinkButton from "../components/LinkButton.jsx";
 import CartItem from "../components/CartItem.jsx";
 import Loading from "../components/Loading.jsx";
+import {formatPrice} from "../lib/price.js";
 
 const CartPage = () => {
-  const { cart, removeFromCart, updateItemQuantity } = useCart();
+  const { cart, removeItem, updateItemQuantity } = useCart();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -16,13 +16,6 @@ const CartPage = () => {
       setLoading(false);
     }
   }, [cart]);
-
-  const formatPrice = (amount) => {
-    return new Intl.NumberFormat("en-IN", {
-      style: "currency",
-      currency: cart?.currency_code || "INR",
-    }).format(amount);
-  };
 
   if (loading) {
     return <Loading />;
@@ -57,9 +50,9 @@ const CartPage = () => {
           <CartItem
             key={item.id}
             item={item}
-            formatPrice={formatPrice}
+            formatPrice={(amount) => formatPrice(amount, cart.currency_code)}
             updateItemQuantity={updateItemQuantity}
-            removeFromCart={removeFromCart}
+            removeFromCart={removeItem}
           />
         ))}
       </ul>
@@ -67,7 +60,7 @@ const CartPage = () => {
         variant="primary"
         size="lg"
         to="/checkout/address"
-        disabled={cart.items.length === 0}
+        disabled={cart?.items?.length === 0}
       >
         Checkout
       </LinkButton>

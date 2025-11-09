@@ -7,17 +7,17 @@ import LinkButton from "../components/LinkButton.jsx";
 import AddressCard from "../components/AddressCard.jsx";
 
 const CheckoutAddress = () => {
-  const { customer } = useUser();
+  const { customer, loading: loadingCustomer } = useUser();
   const navigate = useNavigate();
   const [selectedAddressId, setSelectedAddressId] = useState(null);
 
   useEffect(() => {
-    if (!customer) {
+    if (!loadingCustomer && !customer) {
       navigate("/auth?redirect=/checkout/address");
     }
   }, [customer, navigate]);
 
-  if (!customer) {
+  if (loadingCustomer) {
     return <Loading />;
   }
 

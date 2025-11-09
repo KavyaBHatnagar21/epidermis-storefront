@@ -1,9 +1,10 @@
 import React from "react";
 import HeadingWithEphesis from "../../components/HeadingWithEphesis";
 import ArrowLink from "../../components/ArrowLink";
+import {Link} from "react-router-dom";
+
 const AboutSection = () => {
-  return (
-    <section className="mb-16 flex grid-cols-[1fr_1fr] flex-col gap-y-8 
+  return (<section className="mb-16 flex grid-cols-[1fr_1fr] flex-col gap-y-8
     lg:mb-32 lg:grid lg:gap-x-16 
     xl:container xl:mx-auto xl:grid-cols-[1fr_1fr_1fr] xl:grid-rows-[0.6fr_0.32fr_1fr] xl:gap-x-32 xl:px-8 2xl:px-20">
 
@@ -47,15 +48,16 @@ const AboutSection = () => {
           Epidermis’ Leather apart. If you are Looking for best leather goods
           manufacturers in India then you are at the right place.
         </p>
-        <ArrowLink
-          useButton
-          className="xl:text-primary my-6 w-full bg-transparent xl:border-1"
-        >
-          Learn More&nbsp;→
-        </ArrowLink>
+        <Link to={"/about"}>
+          <ArrowLink
+            useButton
+            className="xl:text-primary my-6 w-full bg-transparent xl:border-1"
+          >
+            Learn More&nbsp;→
+          </ArrowLink>
+        </Link>
       </div>
-    </section>
-  );
+    </section>);
 };
 
 export default AboutSection;

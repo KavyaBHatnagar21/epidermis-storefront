@@ -1,61 +1,71 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import { sdk } from "../configs/medusa";
 import useCart from "../hooks/useCart.js";
+import {useRegion} from "../hooks/useRegion.js";
+import {formatPrice} from "../lib/price.js";
 
-export default function ProductDetailPage() {
-  const { productId } = useParams();
-  const [loading, setLoading] = useState(true);
-  const [product, setProduct] = useState(null);
-  const [mainImageIndex, setMainImageIndex] = useState(0);
+const ProductDetailPage = () => {
+  const [loading, setLoading] = useState(true)
+  const [product, setProduct] = useState(null)
+  const [mainImageIndex, setMainImageIndex] = useState(0)
+  const { region } = useRegion()
+  const { addToCart } = useCart()
+  const { productId } = useParams()
+  const navigate = useNavigate()
 
-  const { addToCart } = useCart();
-
-  const handleAddToCart = async () => {
-    if (!product || !product.variants || product.variants.length === 0) {
-      console.error("No product variant available to add to cart");
-      return;
-    }
-    try {
-      await addToCart(product.variants[0].id, 1);
-    } catch (error) {
-      console.error("Failed to add to cart", error);
-      alert("Failed to add to cart");
-    }
-  };
-
+  // Fetch product details
   useEffect(() => {
-    async function fetchProduct() {
-      setLoading(true);
+    if (!region) return
+
+    const fetchProduct = async () => {
       try {
-        const { product } = await sdk.store.product.retrieve(productId);
-        setProduct(product);
-      } catch (error) {
-        console.error("Failed to fetch product", error);
+        const { products } = await sdk.store.product.list({
+          handle: productId,
+          region_id: region.id,
+          fields: `*variants.calculated_price,+variants.inventory_quantity,+images`,
+        })
+        if (products.length) {
+          setProduct(products[0])
+        }
+      } catch (err) {
+        console.error("Error fetching product:", err)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
     }
-    fetchProduct();
-  }, [productId]);
 
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-96">
-        <span>Loading...</span>
-      </div>
-    );
+    fetchProduct()
+  }, [productId, region])
+
+  if (loading) return <div className="text-center py-20">Loading...</div>
+  if (!product) return <div className="text-center py-20">Product not found</div>
+
+  const variant = product.variants?.[0]
+  const price = formatPrice(
+    variant?.calculated_price?.calculated_amount ||
+    variant?.prices?.[0]?.amount ||
+    0,
+    region?.currency_code?.toUpperCase()
+  )
+
+  const images = product.images?.length
+    ? product.images.map((img) => ({ id: img.id, url: img.url }))
+    : [{ id: "noimg", url: product.thumbnail }]
+
+  const handleAddToCart = async () => {
+    try {
+      await addToCart(variant.id, 1)
+      navigate("/cart")
+    } catch (err) {
+      console.error("Error adding to cart:", err)
+    }
   }
 
-  if (!product) {
-    return (
-      <div className="flex justify-center items-center h-96">
-        <span>Product not found.</span>
-      </div>
-    );
-  }
-
-  const images = product.images || [];
+  // Extract dimensions if found in description or product metadata
+  const hasDimensions =
+    (product.length && product.width && product.height) ||
+    (variant?.length && variant?.width && variant?.height)
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-12 flex flex-col md:flex-row gap-8">
@@ -92,7 +102,7 @@ export default function ProductDetailPage() {
       {/* Product info */}
       <div className="flex-1 flex flex-col justify-start gap-6">
         <h1 className="text-2xl font-serif tracking-widest">{product.title}</h1>
-        <p className="text-xl font-semibold">₹ {product.variants?.[0]?.prices?.[0]?.amount || product.variants?.[0]?.calculated_price || "N/A"}</p>
+        <p className="text-xl font-semibold">{price}</p>
         <button
           className="bg-gray-900 text-white py-3 px-6 w-40 hover:bg-gray-800 transition"
           onClick={handleAddToCart}
@@ -107,26 +117,28 @@ export default function ProductDetailPage() {
               <p className="text-sm">{product.description}</p>
             </div>
           )}
-          {(product.material || product.variants?.[0]?.material) && (
-            <div>
-              <h3 className="uppercase font-semibold mb-1">Material</h3>
-              <p className="text-sm">
-                {product.material || product.variants?.[0]?.material}
-              </p>
-            </div>
-          )}
-          {((product.length && product.width && product.height) || (product.variants?.[0]?.length && product.variants?.[0]?.width && product.variants?.[0]?.height)) && (
+
+          {hasDimensions && (
             <div>
               <h3 className="uppercase font-semibold mb-1">Dimensions</h3>
               <p className="text-sm">
                 {product.length && product.width && product.height
                   ? `${product.length} x ${product.width} x ${product.height}`
-                  : `${product.variants[0].length} x ${product.variants[0].width} x ${product.variants[0].height}`}
+                  : `${variant.length} x ${variant.width} x ${variant.height}`}
               </p>
+            </div>
+          )}
+
+          {variant?.weight && (
+            <div>
+              <h3 className="uppercase font-semibold mb-1">Weight</h3>
+              <p className="text-sm">{variant.weight} g</p>
             </div>
           )}
         </div>
       </div>
     </div>
-  );
+  )
 }
+
+export default ProductDetailPage;
